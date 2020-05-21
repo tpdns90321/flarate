@@ -34,7 +34,7 @@ fn test_melody_parse_hex() {
 
 #[test]
 fn test_melody_parse_number() {
-	assert_eq!(Melody::parse_number("100").unwrap(), Melody::Number(100));
+	assert_eq!(Melody::parse_number("0.5").unwrap(), Melody::Number(0.5));
 	//number not support hex or alphanumeric!
 	assert!(Melody::parse_number("ef").is_err());
 }

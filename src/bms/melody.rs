@@ -9,7 +9,7 @@ use super::error::MelodyError;
 pub enum Melody {
 	Alphanumeric(Vec<u16>),
 	Hex(Vec<u8>),
-	Number(u16),
+	Number(f32),
 }
 
 // split by 2(length), and parsing radix
@@ -54,7 +54,7 @@ impl Melody {
 	}
 
 	pub fn parse_number(value: &str) -> Result<Melody, MelodyError> {
-		let num = u16::from_str(value);
+		let num = f32::from_str(value);
 		if let Ok(num) = num {
 			Ok(Melody::Number(num))
 		} else {
