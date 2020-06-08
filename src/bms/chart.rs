@@ -10,7 +10,7 @@ use super::error::ChartError;
 lazy_static! {
 	static ref ALPHANUMERIC_MELODY_PARSER: Regex = Regex::new(
 		// #xxxyy:zzzzzz...
-		r"#([^_\W]{3})([^_\W]{2}):([^_\W]+)"
+		r"#([0-9A-Za-z]{3})([0-9A-Za-z]{2}):([0-9A-Za-z]+)"
 		// xxx: bar number, length is 3,
 		// yy: channel code, length is 2,
 		// zzzz...: bar's melody, length is always even,
@@ -18,7 +18,7 @@ lazy_static! {
 	).unwrap();
 	static ref HEXDECIMAL_MELODY_PARSER: Regex = Regex::new(
 		// #xxxyy:zzzzzz...
-		r"#([A-Fa-f]{3})([^_\W]{2}):([^_\W]+)"
+		r"#([0-9A-Fa-f]{3})([0-9A-Fa-f]{2}):([0-9A-Fa-f]+)"
 		// xxx: bar number, length is 3, but hexdecimal
 		// rest all same
 	).unwrap();
