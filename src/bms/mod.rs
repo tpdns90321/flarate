@@ -1,7 +1,7 @@
 pub mod header;
 pub mod melody;
 pub mod channel;
-pub mod bar;
+pub mod chart;
 pub mod error;
 
 pub use header::Header;

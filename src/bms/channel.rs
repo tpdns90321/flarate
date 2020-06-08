@@ -3,7 +3,7 @@ use std::str::FromStr;
 use super::melody::Melody;
 use super::error::{ChannelError, MelodyError};
 
-#[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 pub enum Channel {
 	// Event Channel
 	BGM,
@@ -60,7 +60,7 @@ impl FromStr for Channel {
 impl Channel {
 	pub fn parse_melody(&self, value: &str) -> Result<Melody, MelodyError> {
 		match self {
-			Self::BGM => Melody::parse_hex(value),
+			Self::BGM => Melody::parse_alphanumeric(value),
 			Self::Length => Melody::parse_number(value),
 			Self::BPM => Melody::parse_hex(value),
 			Self::ExBPM => Melody::parse_alphanumeric(value),

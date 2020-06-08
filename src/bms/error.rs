@@ -11,7 +11,7 @@ pub enum MelodyError {
 }
 
 #[derive(Debug)]
-pub enum BarError {
-	EmptyBar,
+pub enum ChartError {
+	EmptyChart,
 }
 
