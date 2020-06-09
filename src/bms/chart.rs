@@ -20,7 +20,7 @@ lazy_static! {
 		// #xxxyy:zzzzzz...
 		r"#([0-9A-Fa-f]{3})([0-9A-Fa-f]{2}):([0-9A-Fa-f]+)"
 		// xxx: bar number, length is 3, but hexdecimal
-		// rest all same
+		// rest are same
 	).unwrap();
 }
 

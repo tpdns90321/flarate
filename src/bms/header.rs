@@ -44,17 +44,18 @@ impl Default for Header {
 	}
 }
 
+// before applying, check error
+#[inline(always)]
+fn check_and_apply<F: FromStr>(target: &mut F, value: &str) {
+	if let Ok(v) = F::from_str(value) {
+		*target = v;
+	}
+}
+
 impl Header {
 	pub fn parse(plain: &str) -> Header {
 		// set default value or None!
 		let mut header = Header::default();
-		// before applying, check error
-		#[inline(always)]
-		fn check_and_apply<F: FromStr>(target: &mut F, value: &str) {
-			if let Ok(v) = F::from_str(value) {
-				*target = v;
-			}
-		}
 	
 		// search header and dispense result
 		for cap in HEADER_PARSER.captures_iter(plain) {
