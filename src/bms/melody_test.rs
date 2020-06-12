@@ -1,4 +1,5 @@
-use super::melody::{parse_alphanum, parse_hex, parse_num};
+use super::melody::{parse_alphanum, parse_hex, parse_float, Melody};
+use super::channel::Channel;
 
 #[test]
 fn test_melody_parse_alphanum() {
@@ -40,8 +41,26 @@ fn test_melody_parse_hex() {
 }
 
 #[test]
-fn test_melody_parse_num() {
-	assert_eq!(parse_num("0.5").unwrap(), 0.5);
+fn test_melody_parse_float() {
+	assert_eq!(parse_float("0.5").unwrap(), 0.5);
 	//num not support hex or alphanum!
-	assert!(parse_num("ef").is_err());
+	assert!(parse_float("ef").is_err());
+}
+
+#[test]
+fn test_melody_struct() {
+	// melody initialize
+	let mut melody = Melody::default();
+
+	// Float value check
+	melody.apply(Channel::Length, "0.5");
+	assert_eq!(*melody.length(), 0.5);
+
+	// Alphanum array value check
+	melody.apply(Channel::ExBPM, "10Aㅋ0A");
+	assert_eq!(*melody.ex_bpm(), vec![36, 0, 10]);
+
+	// Hex array value check
+	melody.apply(Channel::BPM, "10Za0A");
+	assert_eq!(*melody.bpm(), vec![16, 0, 10]);
 }

@@ -1,6 +1,7 @@
 use std::str::FromStr;
 use std::collections::HashMap;
 
+use getset::Getters;
 use num_traits::Num;
 use num_traits::identities::zero;
 
@@ -9,18 +10,27 @@ use super::error::MelodyError;
 
 type Hex = Vec<u8>;
 type Alphanum = Vec<u16>;
-type RealNum = f32;
+type Float = f32;
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, Getters)]
 pub struct Melody {
+	#[getset(get="pub")]
 	bgm: Alphanum,
-	length: RealNum,
+	#[getset(get="pub")]
+	length: Float,
+	#[getset(get="pub")]
 	bpm: Hex,
+	#[getset(get="pub")]
 	ex_bpm: Alphanum,
+	#[getset(get="pub")]
 	stop: Hex,
+	#[getset(get="pub")]
 	first_player_visible: HashMap<u8, Alphanum>,
+	#[getset(get="pub")]
 	second_player_visible: HashMap<u8, Alphanum>,
+	#[getset(get="pub")]
 	first_player_invisible: HashMap<u8, Alphanum>,
+	#[getset(get="pub")]
 	second_player_invisible: HashMap<u8, Alphanum>,
 }
 
@@ -64,8 +74,8 @@ pub(super) fn parse_hex(value: &str) -> Result<Hex, MelodyError> {
 	Ok(parse_by_radix(value, 16))
 }
 
-pub(super) fn parse_num(value: &str) -> Result<RealNum, MelodyError> {
-	let num = RealNum::from_str(value);
+pub(super) fn parse_float(value: &str) -> Result<Float, MelodyError> {
+	let num = Float::from_str(value);
 	if let Ok(num) = num {
 		Ok(num)
 	} else {
@@ -93,7 +103,7 @@ impl Melody {
 	pub fn apply(&mut self, channel: Channel, value: &str) {
 		match channel {
 			Channel::BGM => check_apply(&mut self.bgm, parse_alphanum(value)),
-			Channel::Length => check_apply(&mut self.length, parse_num(value)),
+			Channel::Length => check_apply(&mut self.length, parse_float(value)),
 			Channel::BPM => check_apply(&mut self.bpm, parse_hex(value)),
 			Channel::ExBPM => check_apply(&mut self.ex_bpm, parse_alphanum(value)),
 			Channel::Stop => check_apply(&mut self.stop, parse_hex(value)),
