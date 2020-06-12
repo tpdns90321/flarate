@@ -12,3 +12,5 @@ mod header_test;
 mod melody_test;
 #[cfg(test)]
 mod channel_test;
+#[cfg(test)]
+mod chart_test;
