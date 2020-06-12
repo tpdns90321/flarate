@@ -26,7 +26,7 @@ lazy_static! {
 
 #[derive(Debug)]
 pub struct Chart {
-	melodies: HashMap<(Channel, u16), Melody>
+	melodies: HashMap<u16, Melody>
 }
 
 pub enum ChartType {
@@ -51,16 +51,16 @@ impl Chart {
 
 			match channel {
 				Ok(channel) => {
-					match channel.parse_melody(data) {
-						Ok(melody) => {
-							chart.melodies.insert((channel, num), melody);
-						},
-						// when implemented logging module, implement error logging!
-						Err(err) => { },
+					if let Some(melody) = chart.melodies.get_mut(&num) {
+						melody.apply(channel, data);
+					} else {
+						let mut melody = Melody::default();
+						melody.apply(channel, data);
+						chart.melodies.insert(num, melody);
 					}
 				},
-				// same
-				_ => { }
+				// when implemented logging module, implement error logging!
+				Err(_err) => { }
 			}
 		}
 
