@@ -92,8 +92,8 @@ fn check_apply<V>(target: &mut V, value: Result<V, MelodyError>) {
 }
 
 #[inline(always)]
-fn check_apply_map<V>(target: &mut HashMap<u8,V>, key: u8, value: Result<V, MelodyError>) {
-	match value {
+fn check_apply_object(target: &mut HashMap<u8,Vec<u16>>, key: u8, value: &str) {
+	match parse_alphanum(value) {
 		Ok(v) => { target.insert(key, v); },
 		Err(_err) => { },
 	};
@@ -107,10 +107,10 @@ impl Melody {
 			Channel::BPM => check_apply(&mut self.bpm, parse_hex(value)),
 			Channel::ExBPM => check_apply(&mut self.ex_bpm, parse_alphanum(value)),
 			Channel::Stop => check_apply(&mut self.stop, parse_hex(value)),
-			Channel::FirstPlayerVisible(k) => check_apply_map(&mut self.first_player_visible, k,  parse_alphanum(value)),
-			Channel::SecondPlayerVisible(k) => check_apply_map(&mut self.second_player_visible, k, parse_alphanum(value)),
-			Channel::FirstPlayerInvisible(k) => check_apply_map(&mut self.first_player_invisible, k, parse_alphanum(value)),
-			Channel::SecondPlayerInvisible(k) => check_apply_map(&mut self.second_player_invisible, k, parse_alphanum(value)),
+			Channel::FirstPlayerVisible(k) => check_apply_object(&mut self.first_player_visible, k, value),
+			Channel::SecondPlayerVisible(k) => check_apply_object(&mut self.second_player_visible, k, value),
+			Channel::FirstPlayerInvisible(k) => check_apply_object(&mut self.first_player_invisible, k, value),
+			Channel::SecondPlayerInvisible(k) => check_apply_object(&mut self.second_player_invisible, k, value),
 		};
 	}
 }
