@@ -2,6 +2,7 @@ pub mod header;
 pub mod melody;
 pub mod channel;
 pub mod chart;
+pub mod resource;
 pub mod error;
 
 pub use header::Header;
