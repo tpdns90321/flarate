@@ -15,3 +15,5 @@ mod melody_test;
 mod channel_test;
 #[cfg(test)]
 mod chart_test;
+#[cfg(test)]
+mod resource_test;
