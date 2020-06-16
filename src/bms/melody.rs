@@ -58,7 +58,7 @@ fn parse_by_radix<R: Num>(value: &str, radix: u32) -> Vec<R> {
 		}).0
 }
 
-pub(super) fn parse_alphanum(value: &str) -> Result<Alphanum, MelodyError> {
+fn parse_alphanum(value: &str) -> Result<Alphanum, MelodyError> {
 	if value.len() % 2 != 0 {
 		return Err(MelodyError::OddLength)
 	}
@@ -66,7 +66,7 @@ pub(super) fn parse_alphanum(value: &str) -> Result<Alphanum, MelodyError> {
 	Ok(parse_by_radix(value, 36))
 }
 
-pub(super) fn parse_hex(value: &str) -> Result<Hex, MelodyError> {
+fn parse_hex(value: &str) -> Result<Hex, MelodyError> {
 	if value.len() % 2 != 0 {
 		return Err(MelodyError::OddLength)
 	}
@@ -74,7 +74,7 @@ pub(super) fn parse_hex(value: &str) -> Result<Hex, MelodyError> {
 	Ok(parse_by_radix(value, 16))
 }
 
-pub(super) fn parse_float(value: &str) -> Result<Float, MelodyError> {
+fn parse_float(value: &str) -> Result<Float, MelodyError> {
 	let num = Float::from_str(value);
 	if let Ok(num) = num {
 		Ok(num)
@@ -131,3 +131,5 @@ impl Default for Melody {
 	}
 }
 
+#[cfg(test)]
+mod test;
