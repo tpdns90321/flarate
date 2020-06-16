@@ -1,6 +1,6 @@
 use std::str::FromStr;
 
-use getset::{Getters, MutGetters};
+use getset::{Getters, Setters, MutGetters};
 use regex::Regex;
 
 lazy_static! {
@@ -11,7 +11,7 @@ lazy_static! {
 }
 
 // BMS file header
-#[derive(Getters, MutGetters)]
+#[derive(Getters, Setters, MutGetters)]
 pub struct Header {
 	// empty title is impossible, but bms's folder name can replace it.
 	#[getset(get="pub", set, get_mut)]
