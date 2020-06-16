@@ -7,7 +7,7 @@ use getset::Getters;
 lazy_static! {
 	static ref RESOURCE_PARSER: Regex = Regex::new(
 		// xxxyy zzzzzz...
-		r"#(WAV|OGG|BPM)([\da-zA-Z]{2})\s+(\S+)"
+		r"#(WAV|BPM)([\da-zA-Z]{2})\s+(\S+)"
 		// xxx: file type, string
 		// yy: index number, alphanumeric
 		// zzzzzz...: file name or data
@@ -35,7 +35,7 @@ impl Resource {
 
 			// resource type dispense
 			match name {
-				"WAV" | "OGG" => {
+				"WAV" => {
 					resource.audio.insert(number, String::from(data));
 				},
 				"BPM" => {
