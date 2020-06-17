@@ -7,7 +7,7 @@ use getset::Getters;
 lazy_static! {
 	static ref RESOURCE_PARSER: Regex = Regex::new(
 		// xxxyy zzzzzz...
-		r"#(WAV|BPM)([\da-zA-Z]{2})\s+(\S+)"
+		r"#(WAV|BPM|STOP)([\da-zA-Z]{2})\s+(\S+)"
 		// xxx: file type, string
 		// yy: index number, alphanumeric
 		// zzzzzz...: file name or data
@@ -20,6 +20,16 @@ pub struct Resource {
 	audio: HashMap<u16, String>,
 	#[getset(get="pub")]
 	bpm: HashMap<u16, f32>,
+	#[getset(get="pub")]
+	stop: HashMap<u16, u32>
+}
+
+#[inline(always)]
+fn check_insert<V>(map: &mut HashMap<u16, V>, num: u16, value: Option<V>) {
+	match value {
+		Some(v) => { map.insert(num, v); },
+		None => { }
+	}
 }
 
 impl Resource {
@@ -39,13 +49,11 @@ impl Resource {
 					resource.audio.insert(number, String::from(data));
 				},
 				"BPM" => {
-					match f32::from_str(data) {
-						Ok(bpm) => {
-							resource.bpm.insert(number, bpm);
-						},
-						Err(_err) => { }
-					}
+					check_insert(&mut resource.bpm, number, f32::from_str(data).ok())
 				},
+				"STOP" => {
+					check_insert(&mut resource.stop, number, u32::from_str(data).ok())
+				}
 				_ => { }
 			}
 		}
