@@ -130,6 +130,3 @@ impl Default for Melody {
 		}
 	}
 }
-
-#[cfg(test)]
-mod test;
