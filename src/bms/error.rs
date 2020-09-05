@@ -1,17 +1,16 @@
 #[derive(Debug)]
 pub enum ChannelError {
-	InvalidChannel,
-	UnsupportedChannel,
+    InvalidChannel,
+    UnsupportedChannel,
 }
 
 #[derive(Debug)]
 pub enum MelodyError {
-	OddLength,
-	NotNumber,
+    OddLength,
+    NotNumber,
 }
 
 #[derive(Debug)]
 pub enum ChartError {
-	EmptyChart,
+    EmptyChart,
 }
-
