@@ -4,6 +4,7 @@ pub mod error;
 pub mod header;
 pub mod melody;
 pub mod resource;
+pub mod preprocess;
 
 pub use header::Header;
 
